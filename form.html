@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registration Form</title>
+<style>
+
+ 
+
+  .container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 900px;
+    display: flex;
+    margin: 100px;
+  }
+  .form-section {
+    padding-right: 20px;
+  }
+
+  .data-section {
+    text-align: left;
+    background-color: rgb(194, 189, 189);
+    margin-right: 30px;
+    margin-left: 80px;
+    box-shadow:none;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 8px;
+    text-align: left;
+  }
+  th {
+    background-color: transparent;
+  }
+
+  h2{
+    text-align: center;
+  }
+  #enroll{
+    background-color: rgb(12, 12, 11);
+    color: #f2f2f2;
+    margin-left: 5px;
+    margin-top: 10px;
+    border-radius: 8px;
+    padding: 5px;
+    padding-bottom: 5px;
+    font-weight: 500;
+    height: 40px;
+    width: 100px;
+    font-size: 17px;
+  }
+  #clearButton{
+    background-color: rgb(12, 12, 11);
+    color: #f4f4f4;
+    margin-left: 20px;
+    margin-top: 10px;
+    border-radius: 8px;
+    padding: 5px;
+    padding-bottom: 5px;
+    font-weight: 500;
+    height: 40px;
+    width: 100px;
+    font-size: 17px;
+  }
+
+header{
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
+    margin: 30px;
+    background-color: #e0dddd;
+    height: 60px;
+    border-radius: 8px;
+    padding: 5px;
+}
+</style>
+</head>
+<body>
+    <header>
+        <p>Registration Form</p>
+    </header>
+  
+  <div class="container">
+    <div class="form-section">
+      <h2>Enter Details</h2>
+      <form id="registrationForm">
+        <table>
+          <tr>
+            <th><label for="name">Name</label></th>
+            <td><input type="text" id="name" name="name" required></td>
+          </tr>
+          <tr>
+            <th><label for="email">Email</label></th>
+            <td><input type="email" id="email" name="email" required></td>
+          </tr>
+          <tr>
+            <th><label for="age">Age</label></th>
+            <td><input type="text" id="age" name="age" required></td>
+          </tr>
+          <tr>
+            <th><label for="study">Study</label></th>
+            <td><input type="study" id="study" name="study" required></td>
+          </tr>
+          <tr>
+            <th>Gender</th>
+            <td style="font-size: small;">
+              <label><input type="radio" name="gender" value="Male"> MALE</label>
+              <label><input type="radio" name="gender" value="Female"> FEMALE</label>
+            </td>
+          </tr>
+          <tr>
+            <th>Skills</th>
+            <td style="font-size: small;">
+              <label><input type="checkbox" name="skills" value="JAVA"> JAVA</label>
+              <label><input type="checkbox" name="skills" value="HTML"> HTML</label>
+              <label><input type="checkbox" name="skills" value="CSS"> CSS</label>
+            </td>
+          </tr>
+        </table>
+        <button type="submit" id="enroll">Enroll</button>
+        <button type="button" id="clearButton">Clear</button>
+      </form>
+    </div>
+    <div class="data-section" id="displayData"></div>
+  </div>
+
+
+  <script>
+    const registrationForm = document.getElementById('registrationForm');
+    const displayData = document.getElementById('displayData');
+    const clearButton = document.getElementById('clearButton');
+
+    registrationForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const age= document.getElementById('age').value;
+      const study = document.getElementById('study').value;
+      const gender = document.querySelector('input[name="gender"]:checked') ? document.querySelector('input[name="gender"]:checked').value : '';
+      const skillsList = document.querySelectorAll('input[name="skills"]:checked');
+      const skills = [...skillsList].map(skill => skill.value).join(', ');
+
+      const userData = `
+        <h3>Enrolled students</h3>
+        <table>
+    <tr>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>  <table>
+          <tr><td>${name}</td></tr>
+          <tr><td>${email}</td></tr>
+          <tr><td>${age}</td></tr>
+          <tr><td>${study}</td></tr>
+          <tr><td>${gender}</td></tr>
+          <tr><td>${skills}</td></tr>
+          </table></td>
+    </tr>
+        </table>
+      `;
+
+      displayData.innerHTML = userData;
+    });
+
+    clearButton.addEventListener('click', function () {
+      displayData.innerHTML = '';
+      registrationForm.reset();
+    });
+  </script>
+</body>
+</html>
